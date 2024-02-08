@@ -1,7 +1,7 @@
 package artifact;
 
-import domain.User;
-import service.UserService;
+import artifact.domain.User;
+import artifact.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -23,9 +23,9 @@ public class TestDataInit {
          * 테스트 유저 추가
          */
         User userA = new User();
-        userA.setUid("lemon");
-        userA.setPwd("asd123");
-        userA.setName("lemon_soju");
+        userA.setUid("Test1");
+        userA.setPwd("qwer1234");
+        userA.setName("곽득춘");
 
         userService.join(userA);
     }
