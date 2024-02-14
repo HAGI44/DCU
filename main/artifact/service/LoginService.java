@@ -2,14 +2,18 @@ package artifact.service;
 
 import artifact.domain.User;
 import artifact.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class LoginService {
 
     private final UserRepository userRepository;
+
+    @Autowired
+    public LoginService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public User login(String loginId, String pwd) {
         return userRepository.findByUid(loginId)

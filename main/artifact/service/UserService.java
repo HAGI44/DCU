@@ -1,9 +1,10 @@
-package artifact.service;
+/**package artifact.service;
 
 import artifact.domain.User;
 import artifact.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,15 +13,17 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-@RequiredArgsConstructor // final이 붙은 클래스 자동으로 인젝션하여 생성자를 생성한다
-@Slf4j
 public class UserService {
+
+    private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
     private final UserRepository userRepository;
 
-    /**
-     * 회원 가입
-     */
+    @Autowired
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     @Transactional
     public Long join(User user) {
         validateDuplicateUser(user);
@@ -30,14 +33,11 @@ public class UserService {
 
     private void validateDuplicateUser(User user) {
         Optional<User> findUsers = userRepository.findByUid(user.getUid());
-        if (!findUsers.isEmpty()) {
+        if (findUsers.isPresent()) {
             throw new IllegalStateException("Already Existing User");
         }
     }
 
-    /**
-     * 회원 전체 조회
-     */
     public List<User> findUsers(){
         return userRepository.findAll();
     }
@@ -45,6 +45,6 @@ public class UserService {
     public User findOne(Long userId){
         return userRepository.findOne(userId);
     }
-
-
 }
+*
+*/

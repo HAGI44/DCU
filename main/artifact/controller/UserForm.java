@@ -1,17 +1,37 @@
 package artifact.controller;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.validation.constraints.NotEmpty;
 
-@Getter @Setter
 public class UserForm {
 
-    @NotEmpty(message = "회원 id는 필수입니다.")
     private String uid;
-    @NotEmpty(message = "회원 비밀번호는 필수입니다.")
     private String pwd;
-    @NotEmpty(message = "회원 이름은 필수입니다.")
     private String name;
+
+    @NotEmpty(message = "회원 id는 필수입니다.")
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    @NotEmpty(message = "회원 비밀번호는 필수입니다.")
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
+    }
+
+    @NotEmpty(message = "회원 이름은 필수입니다.")
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

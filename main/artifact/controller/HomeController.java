@@ -3,26 +3,29 @@ package artifact.controller;
 import artifact.SessionConst;
 import artifact.domain.User;
 import artifact.service.LoginService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
-@RequiredArgsConstructor
-@Slf4j
 public class HomeController {
 
+    private static final Logger log = LoggerFactory.getLogger(HomeController.class);
+
     private final LoginService loginService;
+
+    @Autowired
+    public HomeController(LoginService loginService) {
+        this.loginService = loginService;
+    }
 
     @RequestMapping("/")
     public String login(@SessionAttribute(name = SessionConst.LOGIN_USER, required = false) User loginUser, Model model){
