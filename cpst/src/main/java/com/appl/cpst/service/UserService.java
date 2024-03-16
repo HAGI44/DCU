@@ -17,7 +17,6 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder encoder;
 
     /**
      * loginId 중복 체크
@@ -46,15 +45,6 @@ public class UserService {
         userRepository.save(req.toEntity());
     }
 
-    /**
-     * 회원가입 기능 2
-     * 화면에서 JoinRequest(loginId, password, nickname)을 입력받아 User로 변환 후 저장
-     * 회원가입 1과는 달리 비밀번호를 암호화해서 저장
-     * loginId, nickname 중복 체크는 Controller에서 진행 => 에러 메세지 출력을 위해
-     */
-    public void join2(JoinRequest req) {
-        userRepository.save(req.toEntity(encoder.encode(req.getPassword())));
-    }
 
     /**
      *  로그인 기능

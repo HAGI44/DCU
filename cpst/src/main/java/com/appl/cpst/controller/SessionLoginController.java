@@ -22,15 +22,15 @@ import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/session-login")
+@RequestMapping("/intropage")
 public class SessionLoginController {
 
 	private final UserService userService;
 
     @GetMapping(value = {"", "/"})
     public String home(Model model, @SessionAttribute(name = "userId", required = false) Long userId) {
-        model.addAttribute("loginType", "session-login");
-        model.addAttribute("pageName", "세션 로그인");
+        model.addAttribute("loginType", "intropage");
+        model.addAttribute("pageName", "시작 페이지");
 
         User loginUser = userService.getLoginUserById(userId);
 
@@ -43,8 +43,8 @@ public class SessionLoginController {
 
     @GetMapping("/join")
     public String joinPage(Model model) {
-        model.addAttribute("loginType", "session-login");
-        model.addAttribute("pageName", "세션 로그인");
+        model.addAttribute("loginType", "intropage");
+        model.addAttribute("pageName", "시작 페이지");
 
         model.addAttribute("joinRequest", new JoinRequest());
         return "join";
@@ -52,8 +52,8 @@ public class SessionLoginController {
 
     @PostMapping("/join")
     public String join(@Valid @ModelAttribute JoinRequest joinRequest, BindingResult bindingResult, Model model) {
-        model.addAttribute("loginType", "session-login");
-        model.addAttribute("pageName", "세션 로그인");
+        model.addAttribute("loginType", "intropage");
+        model.addAttribute("pageName", "시작 페이지");
 
         // loginId 중복 체크
         if(userService.checkLoginIdDuplicate(joinRequest.getLoginId())) {
@@ -73,13 +73,13 @@ public class SessionLoginController {
         }
 
         userService.join(joinRequest);
-        return "redirect:/session-login";
+        return "redirect:/intropage";
     }
 
     @GetMapping("/login")
     public String loginPage(Model model) {
-        model.addAttribute("loginType", "session-login");
-        model.addAttribute("pageName", "세션 로그인");
+        model.addAttribute("loginType", "intropage");
+        model.addAttribute("pageName", "시작 페이지");
 
         model.addAttribute("loginRequest", new LoginRequest());
         return "login";
@@ -88,8 +88,8 @@ public class SessionLoginController {
     @PostMapping("/login")
     public String login(@ModelAttribute LoginRequest loginRequest, BindingResult bindingResult,
                         HttpServletRequest httpServletRequest, Model model) {
-        model.addAttribute("loginType", "session-login");
-        model.addAttribute("pageName", "세션 로그인");
+        model.addAttribute("loginType", "intropage");
+        model.addAttribute("pageName", "시작 페이지");
 
         User user = userService.login(loginRequest);
 
@@ -111,30 +111,30 @@ public class SessionLoginController {
         session.setAttribute("userId", user.getId());
         session.setMaxInactiveInterval(1800); // Session이 30분동안 유지
 
-        return "redirect:/session-login";
+        return "redirect:/intropage";
     }
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, Model model) {
-        model.addAttribute("loginType", "session-login");
-        model.addAttribute("pageName", "세션 로그인");
+        model.addAttribute("loginType", "intropage");
+        model.addAttribute("pageName", "시작 페이지");
 
         HttpSession session = request.getSession(false);  // Session이 없으면 null return
         if(session != null) {
             session.invalidate();
         }
-        return "redirect:/session-login";
+        return "redirect:/intropage";
     }
 
     @GetMapping("/info")
     public String userInfo(@SessionAttribute(name = "userId", required = false) Long userId, Model model) {
-        model.addAttribute("loginType", "session-login");
-        model.addAttribute("pageName", "세션 로그인");
+        model.addAttribute("loginType", "intropage");
+        model.addAttribute("pageName", "시작 페이지");
 
         User loginUser = userService.getLoginUserById(userId);
 
         if(loginUser == null) {
-            return "redirect:/session-login/login";
+            return "redirect:/intropage/login";
         }
 
         model.addAttribute("user", loginUser);
@@ -143,17 +143,17 @@ public class SessionLoginController {
 
     @GetMapping("/admin")
     public String adminPage(@SessionAttribute(name = "userId", required = false) Long userId, Model model) {
-        model.addAttribute("loginType", "session-login");
-        model.addAttribute("pageName", "세션 로그인");
+        model.addAttribute("loginType", "intropage");
+        model.addAttribute("pageName", "시작 페이지");
 
         User loginUser = userService.getLoginUserById(userId);
 
         if(loginUser == null) {
-            return "redirect:/session-login/login";
+            return "redirect:/intropage/login";
         }
 
         if(!loginUser.getRole().equals(UserRole.ADMIN)) {
-            return "redirect:/session-login";
+            return "redirect:/intropage";
         }
 
         return "admin";
