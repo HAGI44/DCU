@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="|${pageName}|"></title>
+</head>
+<body>
+    <div>
+        <h1><a th:href="|/$session-login|">[[${pageName}]]</a></h1> <hr/>
+        <div th:if="${nickname == null}">
+            <h3>로그인 되어있지 않습니다!</h3>
+            <button th:onclick="|location.href='@{/session-login/join (loginType=$session-login)}'|">회원 가입</button> <br/><br/>
+            <button th:onclick="|location.href='@{/session-login/login (loginType=$session-login)}'|">로그인</button>
+        </div>
+        <div th:unless="${nickname == null}">
+            <h3>[[${nickname}]]님 환영합니다!</h3>
+            <button th:onclick="|location.href='@{/session-login/info (loginType=$session-login)}'|">유저 정보</button> <br/><br/>
+            <button th:onclick="|location.href='@{/session-login/admin (loginType=$session-login)}'|">관리자 페이지</button> <br/><br/>
+            <button th:onclick="|location.href='@{/session-login/logout (loginType=$session-login)}'|">로그아웃</button>
+        </div>
+    </div>
+</body>
+</html>
