@@ -36,7 +36,7 @@ public class CalculationService {
         int bonusPoints = 0;
         
         // 졸업 예정자에게는 40점 부여
-        if (student.isGraduationCandidate()) {
+        if (student.isPreGradu()) {
             bonusPoints += 40;
         }
         

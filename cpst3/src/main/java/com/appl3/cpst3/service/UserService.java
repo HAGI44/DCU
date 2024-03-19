@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.appl3.cpst3.domain.dto.JoinRequest;
 import com.appl3.cpst3.domain.dto.LoginRequest;
 import com.appl3.cpst3.domain.entity.User;
 import com.appl3.cpst3.repository.UserRepository;
@@ -20,39 +19,19 @@ public class UserService {
 
     /**
      * loginId 중복 체크
-     * 회원가입 기능 구현 시 사용
-     * 중복되면 true return
      */
-    public boolean checkLoginIdDuplicate(String loginId) {
-        return userRepository.existsByLoginId(loginId);
+    public boolean checkLoginIdDuplicate(String studentCode) {
+        return userRepository.existsByStudentCode(studentCode);
     }
 
     /**
-     * nickname 중복 체크
-     * 회원가입 기능 구현 시 사용
-     * 중복되면 true return
-     */
-    public boolean checkNicknameDuplicate(String nickname) {
-        return userRepository.existsByNickname(nickname);
-    }
+     * 회원가입 기능은 제외
 
     /**
-     * 회원가입 기능 1
-     * 화면에서 JoinRequest(loginId, password, nickname)을 입력받아 User로 변환 후 저장
-     * loginId, nickname 중복 체크는 Controller에서 진행 => 에러 메세지 출력을 위해
-     */
-    public void join(JoinRequest req) {
-        userRepository.save(req.toEntity());
-    }
-
-
-    /**
-     *  로그인 기능
-     *  화면에서 LoginRequest(loginId, password)을 입력받아 loginId와 password가 일치하면 User return
-     *  loginId가 존재하지 않거나 password가 일치하지 않으면 null return
+     * 로그인 기능
      */
     public User login(LoginRequest req) {
-        Optional<User> optionalUser = userRepository.findByLoginId(req.getLoginId());
+        Optional<User> optionalUser = userRepository.findByStudentCode(req.getLoginId());
 
         // loginId와 일치하는 User가 없으면 null return
         if(optionalUser.isEmpty()) {
@@ -71,9 +50,6 @@ public class UserService {
 
     /**
      * userId(Long)를 입력받아 User을 return 해주는 기능
-     * 인증, 인가 시 사용
-     * userId가 null이거나(로그인 X) userId로 찾아온 User가 없으면 null return
-     * userId로 찾아온 User가 존재하면 User return
      */
     public User getLoginUserById(Long userId) {
         if(userId == null) return null;
@@ -86,14 +62,11 @@ public class UserService {
 
     /**
      * loginId(String)를 입력받아 User을 return 해주는 기능
-     * 인증, 인가 시 사용
-     * loginId가 null이거나(로그인 X) userId로 찾아온 User가 없으면 null return
-     * loginId로 찾아온 User가 존재하면 User return
      */
-    public User getLoginUserByLoginId(String loginId) {
-        if(loginId == null) return null;
+    public User getLoginUserByLoginId(String studentCode) {
+        if(studentCode == null) return null;
 
-        Optional<User> optionalUser = userRepository.findByLoginId(loginId);
+        Optional<User> optionalUser = userRepository.findByStudentCode(studentCode);
         if(optionalUser.isEmpty()) return null;
 
         return optionalUser.get();

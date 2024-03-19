@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.appl3.cpst3.domain.entity.Enrollment;
-import com.appl3.cpst3.repository.EnrollmentRepository;
 import com.appl3.cpst3.service.EnrollmentService;
 
 @RestController
@@ -18,12 +17,13 @@ public class EnrollmentController {
         this.enrollmentService = enrollmentService;
     }
 
+    // 학생을 강의에 등록하는 엔드포인트
     @PostMapping("/enrollments")
     public Enrollment enrollStudent(@RequestBody Enrollment enrollmentRequest) {
-        // 여기서 enrollmentRequest를 통해 HTTP 요청의 바디에 있는 데이터를 읽어옵니다.
+        // enrollmentRequest를 통해 HTTP 요청의 바디에 있는 데이터를 읽어옵니다.
         // 이 데이터를 바탕으로 Enrollment 객체를 생성하여 서비스에 전달합니다.
-        return enrollmentService.enrollStudent(enrollmentRequest.getStudentId(), 
-                                               enrollmentRequest.getCourseId(), 
+        return enrollmentService.enrollStudent(enrollmentRequest.getStudentCode(), 
+                                               enrollmentRequest.getCourseCode(), 
                                                enrollmentRequest.getMileageBet());
     }
 }

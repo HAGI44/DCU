@@ -15,7 +15,9 @@ public class CourseService {
         this.courseRepository = courseRepository;
     }
 
+    // 주어진 courseId를 사용하여 해당하는 강의를 조회하는 메서드
     public Course getCourseById(long courseId) {
-        return courseRepository.findById(courseId);
+        return courseRepository.findById(courseId).orElse(null);
     }
+    // 오류 발생 시 null에 대한 예외 처리 필요
 }

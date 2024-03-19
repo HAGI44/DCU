@@ -19,6 +19,7 @@ public class ResultController {
     // 수강신청이 완료된 과목을 조회하는 컨트롤러 메서드
     @GetMapping("/completed-enrollments")
     public List<Enrollment> getCompletedEnrollments() {
+        // ResultService를 통해 수강신청이 완료된 과목을 조회하고 반환합니다.
         return resultService.getCompletedEnrollments();
     }
 }

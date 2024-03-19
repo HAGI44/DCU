@@ -15,11 +15,17 @@ public class EnrollmentService {
         this.enrollmentRepository = enrollmentRepository;
     }
 
-    public Enrollment enrollStudent(Long studentId, Long courseId, int mileageBet) {
+    // 학생을 강의에 등록하는 메서드
+    public Enrollment enrollStudent(String studentCode, String courseCode, int mileageBet) {
+        // Enrollment 객체 생성
         Enrollment enrollment = new Enrollment();
-        enrollment.setStudentId(studentId);
-        enrollment.setCourseId(courseId);
+        // 학생 코드 설정
+        enrollment.setStudentCode(studentCode);
+        // 강의 코드 설정
+        enrollment.setCourseCode(courseCode);
+        // 베팅한 마일리지 설정
         enrollment.setMileageBet(mileageBet);
+        // Enrollment 저장 및 반환
         return enrollmentRepository.save(enrollment);
     }
 }

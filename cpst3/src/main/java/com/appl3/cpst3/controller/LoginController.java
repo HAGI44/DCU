@@ -7,24 +7,21 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
-import com.appl3.cpst3.domain.UserRole;
-import com.appl3.cpst3.domain.dto.JoinRequest;
 import com.appl3.cpst3.domain.dto.LoginRequest;
 import com.appl3.cpst3.domain.entity.User;
 import com.appl3.cpst3.service.UserService;
+import com.appl3.cpst3.domain.UserRole;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/intropage")
-public class SessionLoginController {
+public class LoginController {
 
 	private final UserService userService;
 
@@ -36,46 +33,13 @@ public class SessionLoginController {
         User loginUser = userService.getLoginUserById(userId);
 
         if(loginUser != null) {
-            model.addAttribute("nickname", loginUser.getNickname());
+            model.addAttribute("nickname", loginUser.getName()); // 이름으로 변경
         }
 
         return "home";
     }
 
-    @GetMapping("/join")
-    public String joinPage(Model model) {
-        model.addAttribute("loginType", "intropage");
-        model.addAttribute("pageName", "시작 페이지");
-
-        model.addAttribute("joinRequest", new JoinRequest());
-        return "join";
-    }
-
-    @PostMapping("/join")
-    public String join(@Valid @ModelAttribute JoinRequest joinRequest, BindingResult bindingResult, Model model) {
-        model.addAttribute("loginType", "intropage");
-        model.addAttribute("pageName", "시작 페이지");
-
-        // loginId 중복 체크
-        if(userService.checkLoginIdDuplicate(joinRequest.getLoginId())) {
-            bindingResult.addError(new FieldError("joinRequest", "loginId", "로그인 아이디가 중복됩니다."));
-        }
-        // 닉네임 중복 체크
-        if(userService.checkNicknameDuplicate(joinRequest.getNickname())) {
-            bindingResult.addError(new FieldError("joinRequest", "nickname", "닉네임이 중복됩니다."));
-        }
-        // password와 passwordCheck가 같은지 체크
-        if(!joinRequest.getPassword().equals(joinRequest.getPasswordCheck())) {
-            bindingResult.addError(new FieldError("joinRequest", "passwordCheck", "바밀번호가 일치하지 않습니다."));
-        }
-
-        if(bindingResult.hasErrors()) {
-            return "join";
-        }
-
-        userService.join(joinRequest);
-        return "redirect:/intropage";
-    }
+    // join 페이지 관련 코드는 삭제합니다.
 
     @GetMapping("/login")
     public String loginPage(Model model) {
@@ -159,19 +123,6 @@ public class SessionLoginController {
 
         return "admin";
     }
-    // 세션 리스트 확인용 코드
-    public static Hashtable sessionList = new Hashtable();
-    
-    @GetMapping("/session-list")
-    @ResponseBody
-    public Map<String, String> sessionList() {
-        Enumeration elements = sessionList.elements();
-        Map<String, String> lists = new HashMap<>();
-        while(elements.hasMoreElements()) {
-            HttpSession session = (HttpSession)elements.nextElement();
-            lists.put(session.getId(), String.valueOf(session.getAttribute("userId")));
-        }
-        return lists;
-    }
-    
+
+    // 세션 리스트 확인용 코드는 삭제합니다.
 }

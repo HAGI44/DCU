@@ -22,9 +22,11 @@ public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String loginId;
+    private String studentCode; // 학번
+
     private String password;
-    private String nickname;
+
+    private String name; // 학생의 이름 추가
 
     private UserRole role;
 }

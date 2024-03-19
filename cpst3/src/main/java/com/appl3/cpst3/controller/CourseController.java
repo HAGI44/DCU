@@ -17,6 +17,7 @@ public class CourseController {
         this.courseService = courseService;
     }
 
+    // 주어진 id에 해당하는 강의 정보를 조회하는 메서드
     @GetMapping("/courses/{id}")
     public Course getCourse(@PathVariable long id) {
         return courseService.getCourseById(id);
