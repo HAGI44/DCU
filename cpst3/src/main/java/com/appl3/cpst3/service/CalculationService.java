@@ -12,7 +12,7 @@ public class CalculationService {
         int extraMileage = 0;
         
         // 성적우수자나 복수전공자는 기본 마일리지에 10을 추가
-        if (student.isExcellent() || student.isDoubleMajor()) {
+        if (student.isExcellent() || student.isDoubleMajorcheck()) {
             extraMileage += 10;
         }
         
@@ -24,7 +24,7 @@ public class CalculationService {
         int baseCredits = 19;
         
         // 성적우수자나 복수전공자는 최대 수강 학점이 3점 늘어남
-        if (student.isExcellent() || student.isDoubleMajor()) {
+        if (student.isExcellent() || student.isDoubleMajorcheck()) {
             baseCredits += 3;
         }
         
@@ -36,7 +36,7 @@ public class CalculationService {
         int bonusPoints = 0;
         
         // 졸업 예정자에게는 40점 부여
-        if (student.isPreGradu()) {
+        if (student.isPreGraduation()) {
             bonusPoints += 40;
         }
         
