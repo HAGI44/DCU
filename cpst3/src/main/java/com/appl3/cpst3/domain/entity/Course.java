@@ -1,15 +1,17 @@
-package com.appl3.cpst3.domain.entity;
+package com.appl3.cpst3.domain.entity; // 이 패키지는 com.appl3.cpst3.domain.entity로 정의됨
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.Entity; // JPA 엔티티를 나타내는 어노테이션을 가져옴
+import jakarta.persistence.GeneratedValue; // 자동 생성되는 키를 나타내는 어노테이션을 가져옴
+import jakarta.persistence.GenerationType; // 키의 생성 전략을 지정하는 열거형을 가져옴
+import jakarta.persistence.Id; // 엔티티의 기본 키를 나타내는 어노테이션을 가져옴
 
-@Entity
-public class Course {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Entity // 이 클래스가 JPA 엔티티임을 나타내는 어노테이션
+public class Course { // 강의 정보를 나타내는 엔티티 클래스
+
+    @Id // 엔티티의 기본 키를 나타내는 어노테이션
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // 키의 자동 생성 전략을 IDENTITY로 지정
+    private Long id; // 강의의 고유 식별자
+
     private String courseCode; // 강의 코드 (PK)
     private String name; // 강의 이름
     private String grade; // 학점 (varchar(2))

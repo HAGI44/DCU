@@ -1,41 +1,36 @@
 <!DOCTYPE html>
-<html lang="ko">
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title th:text="|${pageName}|"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css"> <!-- 별도의 CSS 파일 연결 -->
 </head>
 <body>
-<div>
-    <h1><a th:href="|/${loginType}|">[[${pageName}]]</a></h1> <hr/>
-        <h2>로그인</h2>
-        <form th:method="post" th:action="|@{/{loginType}/login (loginType=${loginType})}|" th:object="${loginRequest}">
-            <div>
-                <label th:for="loginId">로그인 아이디 : </label>
-                <input type="text" th:field="*{loginId}"/>
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Login</div>
+                    <div class="card-body">
+                        <!-- 로그인 폼 -->
+                        <form action="/intropage/login" method="post">
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" id="username" name="username" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" id="password" name="password" class="form-control" required>
+                            </div>
+                            <!-- 로그인 버튼 -->
+                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <br/>
-            <div>
-                <label th:for="password">비밀번호 : </label>
-                <input type="password" th:field="*{password}"/>
-            </div>
-            <div th:if="${#fields.hasGlobalErrors()}">
-                <br/>
-                <div class="error-class" th:each="error : ${#fields.globalErrors()}" th:text="${error}" />
-            </div>
-            <br/>
-            <button type="submit">로그인</button>
-            <button type="button" th:onclick="|location.href='@{/{loginType}/join (loginType=${loginType})}'|">회원 가입</button> <br/><br/>
-        </form>
+        </div>
     </div>
 </body>
 </html>
-
-<style>
-.error-class {
-    color: red;
-}
-.error-input {
-    border-color: red;
-}
-</style>
