@@ -22,6 +22,7 @@ public class Student { // 학생 정보를 나타내는 엔티티 클래스
     private Long id; // 학생 정보의 식별자로 사용되는 필드
 
     private String studentCode; // 학생 코드를 나타내는 필드로, 주 키(PK) 및 외부 키(FK)로 사용된다.
+    private String passwd; // 학생 비밀 번호를 나타내는 필드
     private String idNumber; // 학생 식별 번호를 나타내는 필드
     private String name; // 학생 이름을 나타내는 필드
     private String major; // 주전공을 나타내는 필드

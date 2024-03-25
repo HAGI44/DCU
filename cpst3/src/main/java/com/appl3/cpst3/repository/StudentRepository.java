@@ -7,4 +7,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> { // Stu
 
     // 학번으로 학생을 조회하는 메서드
     Student findByStudentCode(String studentCode); // 학번을 받아 해당 학생을 조회하는 메서드
+    
+    // 학번과 비밀번호로 학생 정보 조회
+    Student findByStudentCodeAndPasswd(String studentCode, String passwd);
 }
